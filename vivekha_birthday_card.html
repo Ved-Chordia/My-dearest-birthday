@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Birthday, Vivekha</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap');
+
+:root{
+  --plum: #241827;
+  --plum-deep: #150e17;
+  --amber: #E8A94C;
+  --amber-soft: #f0c988;
+  --blush: #E8B4C0;
+  --sage: #8FAE8B;
+  --cream: #F6EFE6;
+  --cream-dim: #cfc3b9;
+}
+/* =========================================
+   PASSWORD SCREEN
+========================================= */
+
+#passwordScreen {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 999999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 25px;
+
+    background:
+        radial-gradient(
+            ellipse at 20% 0%,
+            rgba(232,169,76,0.12),
+            transparent 55%
+        ),
+        radial-gradient(
+            ellipse at 85% 90%,
+            rgba(143,174,139,0.12),
+            transparent 50%
+        ),
+        #150e17;
+
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
+}
+
+
+#passwordScreen.hidden {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+}
+
+
+.password-box {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    padding: 45px 32px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            180deg,
+            #241827 0%,
+            #1c1220 100%
+        );
+
+    border:
+        1px solid rgba(232,169,76,0.12);
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 40px 80px rgba(0,0,0,0.55);
+}
+
+
+.password-heart {
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: 46px;
+
+    color: #E8B4C0;
+
+    margin-bottom: 8px;
+
+    animation:
+        heartBeat 2s ease-in-out infinite;
+}
+
+
+@keyframes heartBeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+
+}
+
+
+.password-eyebrow {
+
+    font-size: 10px;
+
+    letter-spacing: 0.28em;
+
+    text-transform: uppercase;
+
+    color: #f0c988;
+
+    margin: 0 0 12px;
+}
+
+
+.password-box h1 {
+
+    margin: 0 0 12px;
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: 42px;
+
+    color: #F6EFE6;
+}
+
+
+.password-box h1 em {
+
+    color: #E8B4C0;
+
+    font-style: italic;
+}
+
+
+.password-message {
+
+    font-family:
+        'Cormorant Garamond',
+        serif;
+
+    font-size: 17px;
+
+    line-height: 1.6;
+
+    color: #cfc3b9;
+
+    margin-bottom: 25px;
+}
+
+
+#passwordInput {
+
+    width: 100%;
+
+    padding: 13px 15px;
+
+    margin-bottom: 12px;
+
+    border:
+        1px solid rgba(246,239,230,0.15);
+
+    border-radius: 3px;
+
+    outline: none;
+
+    background:
+        rgba(0,0,0,0.18);
+
+    color: #F6EFE6;
+
+    font-family: 'Jost', sans-serif;
+
+    text-align: center;
+
+    font-size: 14px;
+}
+
+
+#passwordInput::placeholder {
+
+    color:
+        rgba(246,239,230,0.35);
+}
+
+
+#passwordInput:focus {
+
+    border-color:
+        rgba(232,169,76,0.5);
+}
+
+
+.password-box button {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 3px;
+
+    cursor: pointer;
+
+    background: #E8A94C;
+
+    color: #241827;
+
+    font-family: 'Jost', sans-serif;
+
+    font-size: 12px;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+.password-box button:hover {
+
+    transform: translateY(-2px);
+
+    opacity: 0.9;
+}
+
+
+#wrongPassword {
+
+    display: none;
+
+    margin: 15px 0 0;
+
+    color: #E8B4C0;
+
+    font-size: 12px;
+}
+/* ------------------------------
+   GENERAL
+------------------------------ */
+
+*{
+  box-sizing: border-box;
+}
+
+html,
+body{
+  margin: 0;
+  padding: 0;
+  background: var(--plum-deep);
+  font-family: 'Jost', sans-serif;
+}
+
+body{
+  min-height: 100vh;
+}
+
+
+/* ------------------------------
+   MAIN BACKGROUND
+------------------------------ */
+
+.stage{
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 48px 20px;
+
+  background:
+    radial-gradient(
+      ellipse at 20% 0%,
+      rgba(232,169,76,0.10),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 85% 90%,
+      rgba(143,174,139,0.10),
+      transparent 50%
+    ),
+    var(--plum-deep);
+}
+
+
+/* ------------------------------
+   CARD
+------------------------------ */
+
+.card{
+  position: relative;
+
+  width: 100%;
+  max-width: 640px;
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--plum) 0%,
+      #1c1220 100%
+    );
+
+  border-radius: 4px;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 40px 80px -30px rgba(0,0,0,0.7),
+    0 0 0 1px rgba(232,169,76,0.08);
+}
+
+
+/* ------------------------------
+   STRING LIGHTS
+------------------------------ */
+
+.lights{
+  position: relative;
+
+  height: 86px;
+  width: 100%;
+
+  overflow: hidden;
+}
+
+.lights svg{
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.bulb{
+  animation: flicker 3.4s ease-in-out infinite;
+}
+
+.bulb:nth-child(2n){
+  animation-delay: .6s;
+}
+
+.bulb:nth-child(3n){
+  animation-delay: 1.3s;
+}
+
+.bulb:nth-child(5n){
+  animation-delay: 2.1s;
+}
+
+@keyframes flicker{
+
+  0%,
+  100%{
+    opacity: .55;
+  }
+
+  50%{
+    opacity: 1;
+  }
+
+}
+
+
+/* ------------------------------
+   CONTENT
+------------------------------ */
+
+.content{
+  padding: 8px 46px 52px;
+
+  text-align: center;
+
+  color: var(--cream);
+}
+
+
+/* ------------------------------
+   EYEBROW
+------------------------------ */
+
+.eyebrow{
+  font-family: 'Jost', sans-serif;
+
+  font-size: 11px;
+
+  letter-spacing: 0.32em;
+
+  text-transform: uppercase;
+
+  color: var(--amber-soft);
+
+  margin: 6px 0 18px;
+
+  font-weight: 400;
+}
+
+
+/* ------------------------------
+   TITLE
+------------------------------ */
+
+h1{
+  font-family: 'Cormorant Garamond', serif;
+
+  font-weight: 600;
+
+  font-size: 44px;
+
+  line-height: 1.08;
+
+  margin: 0 0 6px;
+
+  color: var(--cream);
+
+  letter-spacing: 0.01em;
+}
+
+h1 em{
+  font-style: italic;
+
+  color: var(--blush);
+
+  font-weight: 500;
+}
+
+
+/* ------------------------------
+   DIVIDER
+------------------------------ */
+
+.divider{
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  margin: 22px 0 26px;
+}
+
+.divider .line{
+  width: 34px;
+
+  height: 1px;
+
+  background:
+    rgba(246,239,230,0.25);
+}
+
+.divider .mark{
+  color: var(--sage);
+
+  font-size: 13px;
+}
+
+
+/* ------------------------------
+   LETTER
+------------------------------ */
+
+.letter{
+  font-family: 'Cormorant Garamond', serif;
+
+  font-size: 19px;
+
+  line-height: 1.75;
+
+  color: var(--cream-dim);
+
+  text-align: left;
+
+  font-weight: 400;
+}
+
+.letter p{
+  margin: 0 0 16px;
+}
+
+.letter p:last-of-type{
+  margin-bottom: 0;
+}
+
+
+/* ------------------------------
+   SIGNOFF
+------------------------------ */
+
+.signoff{
+  margin-top: 30px;
+
+  text-align: right;
+
+  font-family: 'Cormorant Garamond', serif;
+
+  font-style: italic;
+
+  font-size: 20px;
+
+  color: var(--amber-soft);
+}
+
+.signoff .role{
+  display: block;
+
+  font-family: 'Jost', sans-serif;
+
+  font-style: normal;
+
+  font-size: 10px;
+
+  letter-spacing: 0.24em;
+
+  text-transform: uppercase;
+
+  color: var(--cream-dim);
+
+  margin-top: 4px;
+}
+
+
+/* ------------------------------
+   FLOWER ACCENT
+------------------------------ */
+
+.bouquet{
+  display: flex;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  margin-top: 34px;
+}
+
+.petal{
+  width: 9px;
+  height: 9px;
+
+  border-radius: 2px;
+
+  transform: rotate(45deg);
+
+  opacity: 0.85;
+}
+
+
+/* ------------------------------
+   DATE
+------------------------------ */
+
+.footer-date{
+  margin-top: 26px;
+
+  font-size: 11px;
+
+  letter-spacing: 0.2em;
+
+  text-transform: uppercase;
+
+  color: rgba(246,239,230,0.35);
+}
+
+
+/* ------------------------------
+   FILMSTRIP
+------------------------------ */
+
+.filmstrip-wrap{
+  margin-top: 38px;
+
+  padding-top: 30px;
+
+  border-top:
+    1px solid rgba(246,239,230,0.12);
+}
+
+.filmstrip-label{
+  font-family: 'Jost', sans-serif;
+
+  font-size: 10px;
+
+  letter-spacing: 0.28em;
+
+  text-transform: uppercase;
+
+  color: var(--sage);
+
+  margin: 0 0 14px;
+
+  text-align: left;
+}
+
+.filmstrip{
+  display: flex;
+
+  gap: 14px;
+
+  overflow-x: auto;
+
+  padding: 6px 2px 16px;
+
+  scroll-snap-type: x mandatory;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.filmstrip::-webkit-scrollbar{
+  height: 6px;
+}
+
+.filmstrip::-webkit-scrollbar-thumb{
+  background:
+    rgba(246,239,230,0.18);
+
+  border-radius: 4px;
+}
+
+.filmstrip::-webkit-scrollbar-track{
+  background: transparent;
+}
+
+
+/* ------------------------------
+   PHOTO FRAMES
+------------------------------ */
+
+.frame{
+  flex: 0 0 auto;
+
+  width: 132px;
+
+  scroll-snap-align: start;
+
+  background: var(--cream);
+
+  padding: 6px 6px 14px;
+
+  border-radius: 2px;
+
+  box-shadow:
+    0 10px 22px -10px rgba(0,0,0,0.55);
+
+  transform:
+    rotate(var(--tilt, 0deg));
+}
+
+.frame img{
+  display: block;
+
+  width: 100%;
+
+  height: 150px;
+
+  object-fit: cover;
+
+  border-radius: 1px;
+}
+
+
+/* ------------------------------
+   PHOTO ROTATIONS
+------------------------------ */
+
+.frame:nth-child(1){
+  --tilt: -2deg;
+}
+
+.frame:nth-child(2){
+  --tilt: 1.5deg;
+}
+
+.frame:nth-child(3){
+  --tilt: -1deg;
+}
+
+.frame:nth-child(4){
+  --tilt: 2deg;
+}
+
+.frame:nth-child(5){
+  --tilt: -1.5deg;
+}
+
+.frame:nth-child(6){
+  --tilt: 1deg;
+}
+
+.frame:nth-child(7){
+  --tilt: -2deg;
+}
+
+.frame:nth-child(8){
+  --tilt: 1.5deg;
+}
+
+.frame:nth-child(9){
+  --tilt: -1deg;
+}
+
+.frame:nth-child(10){
+  --tilt: 2deg;
+}
+
+.frame:nth-child(11){
+  --tilt: -1.5deg;
+}
+
+.frame:nth-child(12){
+  --tilt: 1deg;
+}
+
+.frame:nth-child(13){
+  --tilt: -2deg;
+}
+
+
+/* ------------------------------
+   MUSIC BUTTON
+------------------------------ */
+
+.music-control{
+  position: fixed;
+
+  right: 20px;
+  bottom: 20px;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: 50%;
+
+  border: 1px solid
+    rgba(240,201,136,0.35);
+
+  background:
+    rgba(36,24,39,0.88);
+
+  color: var(--amber-soft);
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 17px;
+
+  cursor: pointer;
+
+  z-index: 9999;
+
+  backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,0.35);
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
+}
+
+.music-control:hover{
+  transform: scale(1.08);
+
+  background:
+    rgba(55,35,58,0.95);
+}
+
+
+/* ------------------------------
+   MUSIC ICON ANIMATION
+------------------------------ */
+
+.music-control.playing{
+  animation: musicPulse 2s ease-in-out infinite;
+}
+
+@keyframes musicPulse{
+
+  0%,
+  100%{
+    box-shadow:
+      0 8px 25px rgba(0,0,0,0.35);
+  }
+
+  50%{
+    box-shadow:
+      0 8px 30px rgba(232,169,76,0.22);
+  }
+
+}
+
+
+/* ------------------------------
+   MOBILE
+------------------------------ */
+
+@media (max-width: 480px){
+
+  .content{
+    padding:
+      8px 26px 40px;
+  }
+
+  h1{
+    font-size: 34px;
+  }
+
+  .letter{
+    font-size: 17px;
+  }
+
+  .music-control{
+    right: 15px;
+    bottom: 15px;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+<!-- Password-->
+ <div id="passwordScreen">
+
+    <div class="password-box">
+
+        <div class="password-heart">♡</div>
+
+        <p class="password-eyebrow">
+            A little something for you
+        </p>
+
+        <h1>
+            Just for <em>you.</em>
+        </h1>
+
+        <p class="password-message">
+            There is a little surprise waiting inside.
+        </p>
+
+        <input
+            type="password"
+            id="passwordInput"
+            placeholder="Enter our secret"
+            autocomplete="off"
+        >
+
+        <button onclick="unlockWebsite()">
+            Open my heart ♡
+        </button>
+
+        <p id="wrongPassword">
+            That's not it, my love. Try again ♡
+        </p>
+
+    </div>
+
+</div>
+<!-- ==========================================
+     BACKGROUND MUSIC
+=========================================== -->
+
+<audio
+  id="bgMusic"
+  loop
+  preload="auto"
+>
+
+  <source
+    src="Birthday Website\music\birthday.mp4"
+    type="audio/mp4"
+  >
+
+</audio>
+
+
+<!-- ==========================================
+     MUSIC CONTROL
+=========================================== -->
+
+<button
+  id="musicControl"
+  class="music-control"
+  aria-label="Play music"
+  title="Music"
+>
+  ♪
+</button>
+<!-- ==========================================
+     MAIN PAGE
+=========================================== -->
+
+<div class="stage">
+
+  <div class="card">
+
+
+    <!-- STRING LIGHTS -->
+
+    <div class="lights">
+
+      <svg
+        viewBox="0 0 520 86"
+        preserveAspectRatio="none"
+      >
+
+        <path
+          d="M0,10 C 90,60 180,-10 260,30 C 340,60 430,-5 520,25"
+          stroke="rgba(246,239,230,0.18)"
+          stroke-width="1"
+          fill="none"
+        />
+
+        <g>
+
+          <circle
+            class="bulb"
+            cx="18"
+            cy="14"
+            r="4.5"
+            fill="#E8A94C"
+          />
+
+          <circle
+            class="bulb"
+            cx="70"
+            cy="34"
+            r="4"
+            fill="#f0c988"
+          />
+
+          <circle
+            class="bulb"
+            cx="128"
+            cy="12"
+            r="4.5"
+            fill="#E8A94C"
+          />
+
+          <circle
+            class="bulb"
+            cx="182"
+            cy="22"
+            r="4"
+            fill="#f0c988"
+          />
+
+          <circle
+            class="bulb"
+            cx="238"
+            cy="7"
+            r="4.5"
+            fill="#E8A94C"
+          />
+
+          <circle
+            class="bulb"
+            cx="292"
+            cy="28"
+            r="4"
+            fill="#f0c988"
+          />
+
+          <circle
+            class="bulb"
+            cx="348"
+            cy="12"
+            r="4.5"
+            fill="#E8A94C"
+          />
+
+          <circle
+            class="bulb"
+            cx="402"
+            cy="24"
+            r="4"
+            fill="#f0c988"
+          />
+
+          <circle
+            class="bulb"
+            cx="458"
+            cy="10"
+            r="4.5"
+            fill="#E8A94C"
+          />
+
+          <circle
+            class="bulb"
+            cx="504"
+            cy="26"
+            r="4"
+            fill="#f0c988"
+          />
+
+        </g>
+
+      </svg>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+
+      <p class="eyebrow">
+        17 August &mdash; Her Day
+      </p>
+
+
+      <h1>
+        Happy Birthday,
+        <br>
+        <em>Vivekha</em>
+      </h1>
+
+
+      <div class="divider">
+
+        <span class="line"></span>
+
+        <span class="mark">
+          &#10022;
+        </span>
+
+        <span class="line"></span>
+
+      </div>
+
+
+      <!-- LETTER -->
+
+      <div class="letter">
+
+        <p>
+          Today the world gets to celebrate the exact day
+          it got so much better &mdash; the day you were born.
+          And honestly, it feels scripted &#128513; that your
+          birthday and our anniversary is right next to each
+          other, because this whole year has just been proof
+          of how lucky I am that you exist at all.
+        </p>
+
+
+        <p>
+          I keep going back to all our little moments &mdash;
+          1 year ago on 16th Aug when you held my hand in
+          Wellington Lake when Simika was sitting next to us,
+          even though I was nervous because you told me not
+          to tell her or anyone, the moment I proposed to you
+          near those stairs, our first kiss and the day we
+          travelled together, you holding that little paper
+          bouquet like it was the most precious thing you'd
+          ever received. Every one of those moments is just
+          you being you &mdash; warm, easy to love and
+          impossible to forget.
+        </p>
+
+
+        <p>
+          You just make my ordinary days special, idk how you
+          do it, so I am so glad that you are here with me.
+          So happy birthday to the girl who somehow gets more
+          beautiful, more comforting, more home to me with
+          every year that passes.
+        </p>
+
+
+        <p>
+          I hope today is filled with everything you love,
+          and I hope you know, no matter how many birthdays
+          or anniversaries pass, I'll keep choosing you,
+          every single time.
+        </p>
+
+
+        <p>
+          Happy birthday, my love. Here's to celebrating you
+          today, and forever.
+        </p>
+
+      </div>
+
+
+      <!-- FLOWERS -->
+
+      <div class="bouquet">
+
+        <div
+          class="petal"
+          style="background:#a878c9"
+        ></div>
+
+        <div
+          class="petal"
+          style="background:#E8B4C0"
+        ></div>
+
+        <div
+          class="petal"
+          style="background:#8FAE8B"
+        ></div>
+
+        <div
+          class="petal"
+          style="background:#a878c9"
+        ></div>
+
+        <div
+          class="petal"
+          style="background:#E8B4C0"
+        ></div>
+
+      </div>
+
+
+      <!-- SIGNOFF -->
+
+      <div class="signoff">
+
+        Yours always,
+
+        <span class="role">
+          The boy you love the most, Ved
+        </span>
+
+      </div>
+
+
+      <!-- ======================================
+           PHOTO FILMSTRIP
+      ======================================= -->
+
+      <div class="filmstrip-wrap">
+
+        <p class="filmstrip-label">
+          A Year of Us
+        </p>
+
+
+        <div class="filmstrip">
+
+
+          <div class="frame">
+            <img
+              src="photos/v1.jpg"
+              alt="Us"
+            >
+          </div>
+
+
+          <div class="frame">
+            <img
+              src="photos/v2.jpg"
+              alt="Us"
+            >
+          </div>
+
+
+          <div class="frame">
+            <img
+              src="photos/v3.jpg"
+              alt="Us"
+            >
+          </div>
+
+
+          <div class="frame">
+            <img
+              src="photos/v4.jpg"
+              alt="Us"
+            >
+          </div>
+
+
+          <div class="frame">
+            <img
+              src="photos/v5.jpg"
+              alt="Us"
+            >
+          </div>
+
+
+          <div class="frame">
+            <img
+              src="photos/v6.jpg"
+              alt="Us"
+            >
+          </div>
+
+
+          <div class="frame">
+            <img
+              src="photos/v7.jpg"
+              alt="Us"
+            >
+          </div>
+
+
+          <div class="frame">
+            <img
+              src="photos/v8.jpg"
+              alt="Us"
+            >
+          </div>
+
+
+          <div class="frame">
+            <img
+              src="photos/v9.jpg"
+              alt="Us"
+            >
+          </div>
+
+
+          <div class="frame">
+            <img
+              src="photos/v10.jpg"
+              alt="Us"
+            >
+          </div>
+
+
+          <div class="frame">
+            <img
+              src="photos/v11.jpg"
+              alt="Us"
+            >
+          </div>
+
+
+          <div class="frame">
+            <img
+              src="photos/v12.jpg"
+              alt="Us"
+            >
+          </div>
+
+
+          <div class="frame">
+            <img
+              src="photos/v13.jpg"
+              alt="Us"
+            >
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <div class="footer-date">
+        17 August
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ==========================================
+     MUSIC JAVASCRIPT
+=========================================== -->
+
+<script>
+
+const bgMusic =
+  document.getElementById("bgMusic");
+
+const musicControl =
+  document.getElementById("musicControl");
+
+let musicStarted = false;
+
+
+/* ------------------------------------------
+   MUSIC VOLUME
+------------------------------------------- */
+
+bgMusic.volume = 0.25;
+
+
+/* ------------------------------------------
+   CHECK MUSIC FILE
+------------------------------------------- */
+
+bgMusic.addEventListener("error", function() {
+
+  console.error(
+    "❌ Music could not be loaded."
+  );
+
+  console.error(
+    "Check that birthday.mp4 exists at:"
+  );
+
+  console.error(
+    "C:\\Users\\Admin\\Downloads\\birthday.mp4"
+  );
+
+});
+
+
+/* ------------------------------------------
+   FADE IN MUSIC
+------------------------------------------- */
+
+function fadeInMusic(){
+
+  bgMusic.volume = 0;
+
+  const fade = setInterval(() => {
+
+    if(bgMusic.volume < 0.25){
+
+      bgMusic.volume =
+        Math.min(
+          bgMusic.volume + 0.01,
+          0.25
+        );
+
+    }
+
+    else{
+
+      clearInterval(fade);
+
+    }
+
+  }, 100);
+
+}
+
+
+/* ------------------------------------------
+   START MUSIC
+------------------------------------------- */
+
+function startMusic(){
+
+  if(!bgMusic.paused){
+
+    return;
+
+  }
+
+
+  bgMusic.play()
+
+    .then(() => {
+
+      musicStarted = true;
+
+      musicControl.classList.add(
+        "playing"
+      );
+
+      musicControl.innerHTML = "♫";
+
+      musicControl.setAttribute(
+        "aria-label",
+        "Pause music"
+      );
+
+      fadeInMusic();
+
+      console.log(
+        "🎵 Birthday music started!"
+      );
+
+    })
+
+    .catch((error) => {
+
+      console.error(
+        "❌ Music could not start:",
+        error
+      );
+
+    });
+
+}
+
+
+/* ------------------------------------------
+   FIRST CLICK ANYWHERE ON PAGE
+------------------------------------------- */
+
+document.addEventListener(
+  "click",
+  function firstClick(){
+
+    startMusic();
+
+  },
+  {
+    once: true
+  }
+);
+
+
+/* ------------------------------------------
+   MOBILE TOUCH
+------------------------------------------- */
+
+document.addEventListener(
+  "touchstart",
+  function firstTouch(){
+
+    startMusic();
+
+  },
+  {
+    once: true
+  }
+);
+
+
+/* ------------------------------------------
+   MUSIC BUTTON
+------------------------------------------- */
+
+musicControl.addEventListener(
+  "click",
+  function(event){
+
+    event.stopPropagation();
+
+
+    /* PLAY */
+
+    if(bgMusic.paused){
+
+      bgMusic.play()
+
+        .then(() => {
+
+          musicStarted = true;
+
+          musicControl.classList.add(
+            "playing"
+          );
+
+          musicControl.innerHTML = "♫";
+
+          musicControl.setAttribute(
+            "aria-label",
+            "Pause music"
+          );
+
+        })
+
+        .catch((error) => {
+
+          console.error(
+            "Music could not start:",
+            error
+          );
+
+        });
+
+    }
+
+
+    /* PAUSE */
+
+    else{
+
+      bgMusic.pause();
+
+      musicControl.classList.remove(
+        "playing"
+      );
+
+      musicControl.innerHTML = "♪";
+
+      musicControl.setAttribute(
+        "aria-label",
+        "Play music"
+      );
+
+    }
+
+  }
+);
+
+</script>
+<script>
+
+function unlockWebsite() {
+
+    const enteredPassword =
+        document.getElementById(
+            "passwordInput"
+        ).value;
+
+    const correctPassword =
+        "Forever";
+
+
+    if (
+        enteredPassword ===
+        correctPassword
+    ) {
+
+        document
+            .getElementById("passwordScreen")
+            .classList.add("hidden");
+
+        /*
+         * Start music after successful
+         * password entry.
+         */
+
+        if (
+            typeof startMusic ===
+            "function"
+        ) {
+
+            startMusic();
+
+        }
+
+    }
+
+    else {
+
+        const message =
+            document.getElementById(
+                "wrongPassword"
+            );
+
+        message.style.display = "block";
+
+        document
+            .getElementById("passwordInput")
+            .value = "";
+
+    }
+
+}
+
+
+/*
+ * Pressing Enter submits
+ * the password.
+ */
+
+document
+    .getElementById("passwordInput")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                unlockWebsite();
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+
+</html>
